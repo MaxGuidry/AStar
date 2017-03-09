@@ -14,5 +14,4 @@ class Graph:
                 n=Node.Node(j,k,i)
                 self.nodes.append(n)
                 i+=1
-    def write(strin):
-        return
+   
