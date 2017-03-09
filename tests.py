@@ -16,6 +16,7 @@ def GetNeighbors(node,graph):
 
 
 
+
 testGraph = Graph.Graph(6,6)
 testList = GetNeighbors(testGraph.nodes[15],testGraph)
 
