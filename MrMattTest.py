@@ -19,7 +19,6 @@ if __name__ == '__main__':
 
     screen = pygame.display.set_mode((1080, 720))
     running = True
-    circlepos = [540, 360]
     while running:
         pointsforgrid = []
         i = 0
