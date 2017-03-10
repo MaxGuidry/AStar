@@ -1,31 +1,33 @@
-import Graph
-import Node
+"""Astar Algorithm."""
+import node
 
 
-def GetNode(index, g):
-    if g.nodes.has_key(index):
+def get_node(index, g):
+    """Get node with given index in the given graph."""
+    if index in g.nodes:
         return g.nodes[index]
     else:
         return None
 
 
 open = []
-start = Node.Node(0, 0, 0)
+start = node.Node(0, 0, 0)
 
 
-def GetNeighbors(node, graph):
+def get_neighbors(n, g):
+    """Get neighbors of given node in the given graph."""
     neighbors = []
 
-    right = GetNode(node.identifier + graph.y, graph)
-    up = GetNode(node.identifier + 1, graph)
-    left = GetNode(node.identifier - graph.y, graph)
-    down = GetNode(node.identifier - 1, graph)
+    right = get_node(n.identifier + g.y, g)
+    up = get_node(n.identifier + 1, g)
+    left = get_node(n.identifier - g.y, g)
+    down = get_node(n.identifier - 1, g)
     if right is not None:
         neighbors.append(right)
-    if up is not None and node.identifier % graph.y != graph.y - 1:
+    if up is not None and n.identifier % g.y != g.y - 1:
         neighbors.append(up)
     if left is not None:
         neighbors.append(left)
-    if down is not None and node.identifier % graph.y != 0:
+    if down is not None and n.identifier % g.y != 0:
         neighbors.append(down)
     return neighbors
