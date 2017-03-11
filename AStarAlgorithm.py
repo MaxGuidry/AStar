@@ -11,6 +11,8 @@ def get_node(index, g):
 
 
 open = []
+closed = []
+
 start = node.Node(0, 0, 0)
 
 

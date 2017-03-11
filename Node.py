@@ -12,9 +12,9 @@ class Node(object):
 
     def print_info(self):
         """Print all info of Node."""
-        s = "Node:{} Value:\"{},{}\"".format(
+        info = "Node:{} Value:\"{},{}\"".format(
             self.identifier,
             self.p,
             self.y
         )
-        print s
+        print info
