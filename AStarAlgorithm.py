@@ -25,12 +25,18 @@ def get_neighbors(n, g):
     downleft = get_node(n.identifier - g.height + 1, g)
     if right is not None:
         neighbors.append(right)
+    if upright is not None and n.identifier % g.height != 0:
         neighbors.append(upright)
+    if upper is not None and n.identifier % g.height != 0:
         neighbors.append(upper)
+    if upleft is not None and n.identifier % g.height != 0:
         neighbors.append(upleft)
     if left is not None:
         neighbors.append(left)
+    if downleft is not None and n.identifier % g.height != g.height - 1:
         neighbors.append(downleft)
+    if down is not None and n.identifier % g.height != g.height - 1:
         neighbors.append(down)
+    if downright is not None and n.identifier % g.height != g.height - 1:
         neighbors.append(downright)
     return neighbors
