@@ -15,10 +15,17 @@ def dist(current, next):
     return 10 if current.posx == next.posx or current.posy == next.posy else 14
 
 
+def mhdm(nodetotest, goal):
+    x = abs(goal.posx - nodetotest.posx) 
+    y = abs(goal.posy - nodetotest.posy)
+    if x > y:
+        return (y * 14) + (x-y) * 10
+    if y > x:
+        return (x * 14) + (y-x) * 10
+    else:
+        return x * 14
 def mhd(nodetotest, goal):
     return (abs(goal.posx - nodetotest.posx) + abs(goal.posy - nodetotest.posy)) * 10
-
-
 def astar(start, goal):
     camefrom = []
     closed = []
@@ -29,17 +36,10 @@ def astar(start, goal):
     open.append(start)  
     while len(open) != 0:
         open = sorted(open, key=lambda x: x.f)
-        #test to find a better path
-        if goal in open:
-            open.append(goal)
-            open.remove(goal)
         current = open[0]
         open.remove(current)
         closed.append(current)
-        #better path
-        #if current == goal:
-        if goal in open and len(open) == 1:
-            current = goal
+        if current == goal:
             camefrom = retrace(current)
             return camefrom
         for n in current.neighbors:
@@ -52,5 +52,5 @@ def astar(start, goal):
                 continue
             n.parent = current
             n.g = tentative_g
-            n.h = mhd(n,goal)
+            n.h = mhdm(n,goal)
             n.f = n.g + n.h
