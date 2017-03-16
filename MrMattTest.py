@@ -3,6 +3,8 @@ import pygame
 import astar
 import graph
 
+#all draw functions need to be reworked to fix decimal offset by pixels
+
 def drawparents(screen, parents, currentgraph):
     for anode in parents:
         if anode.parent is not None:
@@ -10,19 +12,19 @@ def drawparents(screen, parents, currentgraph):
 
 def drawselected(screen, selectednode, currentgraph):
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect((screen.get_width() / currentgraph.width) *
-                                                          selectednode.posx, (screen.get_height() / currentgraph.height) * selectednode.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 10)
+                                                          selectednode.posx, (screen.get_height() / currentgraph.height) * selectednode.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 5)
 
 def drawstart(screen, startnode, currentgraph):
     pygame.draw.rect(screen, (5, 230, 35), pygame.Rect((screen.get_width() / currentgraph.width) *
-                                                       startnode.posx, (screen.get_height() / currentgraph.height) * startnode.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 10)
+                                                       startnode.posx, (screen.get_height() / currentgraph.height) * startnode.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 5)
 def drawwalls(screen, walls, currentgraph):
     for wall in walls:
         pygame.draw.rect(screen, (255, 0, 230), pygame.Rect((screen.get_width() / currentgraph.width) *
-                         wall.posx, (screen.get_height() / currentgraph.height) * wall.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 10)
+                         wall.posx, (screen.get_height() / currentgraph.height) * wall.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 5)
 
 def drawend(screen, endgoal, currentgraph):
     pygame.draw.rect(screen, (16, 207, 236), pygame.Rect((screen.get_width() / currentgraph.width) *
-                                                       endgoal.posx, (screen.get_height() / currentgraph.height) * endgoal.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 10)
+                                                       endgoal.posx, (screen.get_height() / currentgraph.height) * endgoal.posy, screen.get_width() / currentgraph.width, screen.get_height() / currentgraph.height), 5)
 def drawpath(screen, path, currentgraph):
     for anode in path:
         pygame.draw.rect(screen, (230, 46, 26), pygame.Rect((screen.get_width() / currentgraph.width) *
@@ -32,7 +34,7 @@ def drawpath(screen, path, currentgraph):
 if __name__ == '__main__':
     pygame.display.set_mode((1080, 720))
     SCREEN = pygame.display.get_surface()
-    TESTGRAPH = graph.Graph([10, 10])
+    TESTGRAPH = graph.Graph([25, 25])
 
     TESTGRAPH.nodes[3].walkable = False
     TESTGRAPH.nodes[13].walkable = False
