@@ -27,12 +27,19 @@ def astar(start, goal):
     start.g = 0
     start.f = start.g + start.h
     open.append(start)  
-    while open is not None:
+    while len(open) != 0:
         open = sorted(open, key=lambda x: x.f)
+        #test to find a better path
+        if goal in open:
+            open.append(goal)
+            open.remove(goal)
         current = open[0]
         open.remove(current)
         closed.append(current)
-        if current == goal:
+        #better path
+        #if current == goal:
+        if goal in open and len(open) == 1:
+            current = goal
             camefrom = retrace(current)
             return camefrom
         for n in current.neighbors:
