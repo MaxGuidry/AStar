@@ -22,7 +22,7 @@ class Node(object):
 
     @h.setter
     def h(self, value):
-        self._h = value
+        self._hcost = value
     
     @property
     def g(self):
@@ -30,7 +30,7 @@ class Node(object):
 
     @g.setter
     def g(self, value):
-        self._g = value
+        self._gcost = value
 
     @property
     def f(self):
@@ -38,4 +38,4 @@ class Node(object):
 
     @f.setter
     def f(self, value):
-        self._h = value
+        self._fcost = value
