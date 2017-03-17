@@ -23,7 +23,7 @@ class Node(object):
     @h.setter
     def h(self, value):
         self._hcost = value
-    
+
     @property
     def g(self):
         return self._gcost

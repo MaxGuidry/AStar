@@ -1,12 +1,13 @@
 '''Hello World.'''
 
 
-def retrace(endnode):
-    '''Retrace path from goal to start.'''
+def retrace(start, endnode):
+    """Retracing path from goal to start."""
     path = []
-    while endnode is not None:
-        path.append(endnode)
-        endnode = endnode.parent
+    itera = endnode
+    while itera is not start:
+        path.append(itera)
+        itera = itera.parent
     return path
 
 
@@ -26,6 +27,7 @@ def mhdm(nodetotest, goal):
         return x * 14
 def mhd(nodetotest, goal):
     return (abs(goal.posx - nodetotest.posx) + abs(goal.posy - nodetotest.posy)) * 10
+
 def astar(start, goal):
     camefrom = []
     closed = []
@@ -40,7 +42,7 @@ def astar(start, goal):
         open.remove(current)
         closed.append(current)
         if current == goal:
-            camefrom = retrace(current)
+            camefrom = retrace(start, current)
             return camefrom
         for n in current.neighbors:
             if n in closed or n.walkable is False:
@@ -52,5 +54,5 @@ def astar(start, goal):
                 continue
             n.parent = current
             n.g = tentative_g
-            n.h = mhdm(n,goal)
+            n.h = mhdm(n, goal)
             n.f = n.g + n.h
