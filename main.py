@@ -29,7 +29,7 @@ def drawparents(screen, parents, currentgraph):
 
 
 def drawselected(screen, selectednode, currentgraph):
-    "Draws the selected node."
+    """Draw the selected node."""
     offsetx = decimal.Decimal(decimal.Decimal(screen.get_width() %
                                               currentgraph.width) /
                               currentgraph.width) * selectednode.posx
@@ -53,7 +53,7 @@ def drawselected(screen, selectednode, currentgraph):
 
 
 def drawstart(screen, startnode, currentgraph):
-    """Draw the starting node"""
+    """Draw the starting node."""
     offsetx = decimal.Decimal(decimal.Decimal(screen.get_width() %
                                               currentgraph.width) /
                               currentgraph.width) * startnode.posx
@@ -70,7 +70,7 @@ def drawstart(screen, startnode, currentgraph):
 
 
 def drawwalls(screen, walls, currentgraph):
-    """We r build such camaraderie through our exchanges"""
+    """Draw the walls for the astar."""
     for wall in walls:
         offsetx = decimal.Decimal(decimal.Decimal(screen.get_width() %
                                                   currentgraph.width) /
