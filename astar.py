@@ -5,7 +5,7 @@ def retrace(start, endnode):
     """Retracing path from goal to start."""
     path = []
     itera = endnode
-    while itera is not start:
+    while itera is not None:
         path.append(itera)
         itera = itera.parent
     return path
