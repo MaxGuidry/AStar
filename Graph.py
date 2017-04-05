@@ -18,7 +18,7 @@ class Graph(object):
         for j in range(0, self.width):
             for k in range(0, self.height):
                 n = node.Node(j, k, i)
-                self.nodes[n.identifier] = n
+                self.nodes[int(n.guid)] = n
                 i += 1
         for nds in self.nodes:
             self.nodes[nds].walkable = True

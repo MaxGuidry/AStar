@@ -3,7 +3,7 @@ import decimal
 import pygame
 import astar
 import graph
-
+import testastar as testas
 
 # all draw functions need to be reworked to fix decimal offset by pixels
 
@@ -105,77 +105,87 @@ def drawpath(screen, path, currentgraph):
 
 
 if __name__ == '__main__':
-    pygame.display.set_mode((1080, 720))
-    SCREEN = pygame.display.get_surface()
-    TESTGRAPH = graph.Graph([10, 10])
-    for n in TESTGRAPH.nodes:
-        TESTGRAPH.nodes[n].walkable = True
-        TESTGRAPH.nodes[n].parent = None
-        TESTGRAPH.nodes[n].g = 0
-        TESTGRAPH.nodes[n].f = 0
-        TESTGRAPH.nodes[n].h = 0
-    RUNNING = True
-    CURRENT = TESTGRAPH.nodes[0]
-    ENDGOAL = TESTGRAPH.nodes[(TESTGRAPH.height * TESTGRAPH.width) - 1]
-    SELECTED = TESTGRAPH.nodes[0]
-    WALLS = []
-    PATH = []
-    TESTGRAPH.drawgraph(SCREEN)
-    while RUNNING:
-        EVENTS = pygame.event.get()
-        for event in EVENTS:
-            if event.type == pygame.QUIT:
-                RUNNING = False
-            if event.type == pygame.KEYDOWN:
-                pygame.display.set_mode((1080, 720))
-                TESTGRAPH.drawgraph(SCREEN)
-                if event.key == pygame.K_ESCAPE:
-                    RUNNING = False
-                if (event.key == pygame.K_RIGHT and
-                        SELECTED.identifier + TESTGRAPH.height <
-                        TESTGRAPH.height * TESTGRAPH.width):
-                    SELECTED = TESTGRAPH.nodes[SELECTED.identifier +
-                                               TESTGRAPH.height]
-                if (event.key == pygame.K_LEFT and SELECTED.identifier -
-                        TESTGRAPH.height > -1):
-                    SELECTED = TESTGRAPH.nodes[SELECTED.identifier -
-                                               TESTGRAPH.height]
-                if (event.key == pygame.K_DOWN and SELECTED.identifier <
-                        (TESTGRAPH.height * TESTGRAPH.width) - 1):
-                    SELECTED = TESTGRAPH.nodes[SELECTED.identifier + 1]
-                if event.key == pygame.K_UP and SELECTED.identifier > 0:
-                    SELECTED = TESTGRAPH.nodes[SELECTED.identifier - 1]
-                if event.key == pygame.K_c:
-                    for n in TESTGRAPH.nodes:
-                        TESTGRAPH.nodes[n].walkable = True
-                        TESTGRAPH.nodes[n].parent = None
-                        TESTGRAPH.nodes[n].g = 0
-                        TESTGRAPH.nodes[n].f = 0
-                        TESTGRAPH.nodes[n].h = 0
-                    WALLS = []
-                    PATH = []
-                if event.key == pygame.K_w and SELECTED is not CURRENT and SELECTED is not ENDGOAL:
-                    if TESTGRAPH.nodes[SELECTED.identifier] in WALLS:
-                        WALLS.remove(TESTGRAPH.nodes[SELECTED.identifier])
-                        TESTGRAPH.nodes[SELECTED.identifier].walkable = True
-                    else:
-                        TESTGRAPH.nodes[SELECTED.identifier].walkable = False
-                        WALLS.append(TESTGRAPH.nodes[SELECTED.identifier])
-                        # PATH = astar.astar(CURRENT, ENDGOAL)
-                if event.key == pygame.K_s and SELECTED not in WALLS:
-                    CURRENT = SELECTED
-                if event.key == pygame.K_e and SELECTED not in WALLS:
-                    ENDGOAL = SELECTED
-                if event.key == pygame.K_SPACE:
-                    PATH = astar.astar(CURRENT, ENDGOAL)
-                if event.key == pygame.K_p:
-                    PATH = []
-        # drawparents(SCREEN, PATH, TESTGRAPH)
-        if PATH is not None:
-            drawpath(SCREEN, PATH, TESTGRAPH)
-        drawwalls(SCREEN, WALLS, TESTGRAPH)
-        drawselected(SCREEN, SELECTED, TESTGRAPH)
-        drawstart(SCREEN, CURRENT, TESTGRAPH)
-        drawend(SCREEN, ENDGOAL, TESTGRAPH)
-        pygame.display.flip()
+    passes = 0
+    fails = 0
+    for _ in range(1000):
+        res = testas.testfunc(astar.astar)
+        if res:
+            passes += 1
+        else:
+            fails += 1
+    print str.format('fails {0}, passes {1}', fails, passes)
+
+    # pygame.display.set_mode((1080, 720))
+    # SCREEN = pygame.display.get_surface()
+    # TESTGRAPH = graph.Graph([10, 10])
+    # for n in TESTGRAPH.nodes:
+    #     TESTGRAPH.nodes[n].walkable = True
+    #     TESTGRAPH.nodes[n].parent = None
+    #     TESTGRAPH.nodes[n].g = 0
+    #     TESTGRAPH.nodes[n].f = 0
+    #     TESTGRAPH.nodes[n].h = 0
+    # RUNNING = True
+    # CURRENT = TESTGRAPH.nodes[0]
+    # ENDGOAL = TESTGRAPH.nodes[(TESTGRAPH.height * TESTGRAPH.width) - 1]
+    # SELECTED = TESTGRAPH.nodes[0]
+    # WALLS = []
+    # PATH = []
+    # TESTGRAPH.drawgraph(SCREEN)
+    # while RUNNING:
+    #     EVENTS = pygame.event.get()
+    #     for event in EVENTS:
+    #         if event.type == pygame.QUIT:
+    #             RUNNING = False
+    #         if event.type == pygame.KEYDOWN:
+    #             pygame.display.set_mode((1080, 720))
+    #             TESTGRAPH.drawgraph(SCREEN)
+    #             if event.key == pygame.K_ESCAPE:
+    #                 RUNNING = False
+    #             if (event.key == pygame.K_RIGHT and
+    #                     SELECTED.identifier + TESTGRAPH.height <
+    #                     TESTGRAPH.height * TESTGRAPH.width):
+    #                 SELECTED = TESTGRAPH.nodes[SELECTED.identifier +
+    #                                            TESTGRAPH.height]
+    #             if (event.key == pygame.K_LEFT and SELECTED.identifier -
+    #                     TESTGRAPH.height > -1):
+    #                 SELECTED = TESTGRAPH.nodes[SELECTED.identifier -
+    #                                            TESTGRAPH.height]
+    #             if (event.key == pygame.K_DOWN and SELECTED.identifier <
+    #                     (TESTGRAPH.height * TESTGRAPH.width) - 1):
+    #                 SELECTED = TESTGRAPH.nodes[SELECTED.identifier + 1]
+    #             if event.key == pygame.K_UP and SELECTED.identifier > 0:
+    #                 SELECTED = TESTGRAPH.nodes[SELECTED.identifier - 1]
+    #             if event.key == pygame.K_c:
+    #                 for n in TESTGRAPH.nodes:
+    #                     TESTGRAPH.nodes[n].walkable = True
+    #                     TESTGRAPH.nodes[n].parent = None
+    #                     TESTGRAPH.nodes[n].g = 0
+    #                     TESTGRAPH.nodes[n].f = 0
+    #                     TESTGRAPH.nodes[n].h = 0
+    #                 WALLS = []
+    #                 PATH = []
+    #             if event.key == pygame.K_w and SELECTED is not CURRENT and SELECTED is not ENDGOAL:
+    #                 if TESTGRAPH.nodes[SELECTED.identifier] in WALLS:
+    #                     WALLS.remove(TESTGRAPH.nodes[SELECTED.identifier])
+    #                     TESTGRAPH.nodes[SELECTED.identifier].walkable = True
+    #                 else:
+    #                     TESTGRAPH.nodes[SELECTED.identifier].walkable = False
+    #                     WALLS.append(TESTGRAPH.nodes[SELECTED.identifier])
+    #                     # PATH = astar.astar(CURRENT, ENDGOAL)
+    #             if event.key == pygame.K_s and SELECTED not in WALLS:
+    #                 CURRENT = SELECTED
+    #             if event.key == pygame.K_e and SELECTED not in WALLS:
+    #                 ENDGOAL = SELECTED
+    #             if event.key == pygame.K_SPACE:
+    #                 PATH = astar.astar(CURRENT, ENDGOAL)
+    #             if event.key == pygame.K_p:
+    #                 PATH = []
+    #     # drawparents(SCREEN, PATH, TESTGRAPH)
+    #     if PATH is not None:
+    #         drawpath(SCREEN, PATH, TESTGRAPH)
+    #     drawwalls(SCREEN, WALLS, TESTGRAPH)
+    #     drawselected(SCREEN, SELECTED, TESTGRAPH)
+    #     drawstart(SCREEN, CURRENT, TESTGRAPH)
+    #     drawend(SCREEN, ENDGOAL, TESTGRAPH)
+    #     pygame.display.flip()
 pygame.quit()
