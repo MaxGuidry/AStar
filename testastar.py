@@ -1,6 +1,6 @@
 '''pathfinding.py'''
 import math
-import AStarAlgorithm as maxtest
+import helpers as maxtest
 
 class Node(object):
     '''data'''

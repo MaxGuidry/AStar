@@ -107,7 +107,7 @@ def drawpath(screen, path, currentgraph):
 if __name__ == '__main__':
     passes = 0
     fails = 0
-    for _ in range(1000):
+    for _ in range(100):
         res = testas.testfunc(astar.astar)
         if res:
             passes += 1

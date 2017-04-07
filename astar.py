@@ -1,5 +1,5 @@
 '''Hello World.'''
-import AStarAlgorithm as get
+import helpers as get
 import testastar as tas
 
 
@@ -8,9 +8,10 @@ def retrace(start, endnode):
     """Retracing path from goal to start."""
     path = []
     itera = endnode
-    while itera is not None:
+    while itera is not start:
         path.append(itera)
         itera = itera.parent
+    path.append(itera)
     return path
 
 
