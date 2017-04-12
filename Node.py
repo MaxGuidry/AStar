@@ -4,10 +4,10 @@
 class Node(object):
     """Node."""
 
-    def __init__(self, d, g, ident):
+    def __init__(self, x, y, ident):
         """D is x position and g is the y position ident is id of the Node."""
-        self.posx = d
-        self.posy = g
+        self.posx = x
+        self.posy = y
         self.walkable = True
         self._gcost = 0
         self._hcost = 0
